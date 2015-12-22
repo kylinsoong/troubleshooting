@@ -5,9 +5,9 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Introduction | </title>
+        <title>Generational Garbage Collection Process | </title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="Java Virtual Machine TroubleShooting Manual Mainly focus on the following aspects:">
+        <meta name="description" content="">
         <meta name="generator" content="GitBook 2.6.6">
         
         
@@ -15,21 +15,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
-        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
         
-    <link rel="stylesheet" href="gitbook/style.css">
+    <link rel="stylesheet" href="../gitbook/style.css">
     
         
-        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-highlight/website.css">
-        
-    
-        
-        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-search/search.css">
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
         
     
         
-        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
         
     
     
@@ -37,8 +37,10 @@
         
     
     
-    <link rel="next" href="./intro/introduction.html" />
+    <link rel="next" href="../intro/jvm-opts.html" />
     
+    
+    <link rel="prev" href="../intro/jvm-generation.html" />
     
 
         
@@ -47,10 +49,10 @@
         
         
     <div class="book"
-        data-level="0"
-        data-chapter-title="Introduction"
-        data-filepath="README.md"
-        data-basepath="."
+        data-level="1.4"
+        data-chapter-title="Generational Garbage Collection Process"
+        data-filepath="intro/garbage-collection-process.md"
+        data-basepath=".."
         data-revision="Tue Dec 22 2015 16:46:44 GMT+0800 (CST)"
         data-innerlanguage="">
     
@@ -67,10 +69,10 @@
 
             
     
-        <li class="chapter active" data-level="0" data-path="index.html">
+        <li class="chapter " data-level="0" data-path="index.html">
             
                 
-                    <a href="./index.html">
+                    <a href="../index.html">
                 
                         <i class="fa fa-check"></i>
                         
@@ -83,7 +85,7 @@
         <li class="chapter " data-level="1" data-path="intro/introduction.html">
             
                 
-                    <a href="./intro/introduction.html">
+                    <a href="../intro/introduction.html">
                 
                         <i class="fa fa-check"></i>
                         
@@ -99,7 +101,7 @@
         <li class="chapter " data-level="1.1" data-path="intro/jvm-architecture.html">
             
                 
-                    <a href="./intro/jvm-architecture.html">
+                    <a href="../intro/jvm-architecture.html">
                 
                         <i class="fa fa-check"></i>
                         
@@ -114,7 +116,7 @@
         <li class="chapter " data-level="1.2" data-path="intro/automatic_Garbage_Collection.html">
             
                 
-                    <a href="./intro/automatic_Garbage_Collection.html">
+                    <a href="../intro/automatic_Garbage_Collection.html">
                 
                         <i class="fa fa-check"></i>
                         
@@ -129,7 +131,7 @@
         <li class="chapter " data-level="1.3" data-path="intro/jvm-generation.html">
             
                 
-                    <a href="./intro/jvm-generation.html">
+                    <a href="../intro/jvm-generation.html">
                 
                         <i class="fa fa-check"></i>
                         
@@ -141,10 +143,10 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="intro/garbage-collection-process.html">
+        <li class="chapter active" data-level="1.4" data-path="intro/garbage-collection-process.html">
             
                 
-                    <a href="./intro/garbage-collection-process.html">
+                    <a href="../intro/garbage-collection-process.html">
                 
                         <i class="fa fa-check"></i>
                         
@@ -159,7 +161,7 @@
         <li class="chapter " data-level="1.5" data-path="intro/jvm-opts.html">
             
                 
-                    <a href="./intro/jvm-opts.html">
+                    <a href="../intro/jvm-opts.html">
                 
                         <i class="fa fa-check"></i>
                         
@@ -174,7 +176,7 @@
         <li class="chapter " data-level="1.6" data-path="intro/jmap.html">
             
                 
-                    <a href="./intro/jmap.html">
+                    <a href="../intro/jmap.html">
                 
                         <i class="fa fa-check"></i>
                         
@@ -194,7 +196,7 @@
         <li class="chapter " data-level="2" data-path="labs/labs.html">
             
                 
-                    <a href="./labs/labs.html">
+                    <a href="../labs/labs.html">
                 
                         <i class="fa fa-check"></i>
                         
@@ -210,7 +212,7 @@
         <li class="chapter " data-level="2.1" data-path="labs/lab-heap-usage.html">
             
                 
-                    <a href="./labs/lab-heap-usage.html">
+                    <a href="../labs/lab-heap-usage.html">
                 
                         <i class="fa fa-check"></i>
                         
@@ -250,7 +252,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="./" ></a>
+        <a href="../" ></a>
     </h1>
 </div>
 
@@ -260,15 +262,34 @@
                 
                     <section class="normal" id="section-">
                     
-                        <p>Java Virtual Machine TroubleShooting Manual Mainly focus on the following aspects:</p>
-<ul>
-<li>JVM Hang</li>
-<li>Out of Memory</li>
-<li>JVM Crash</li>
-<li>High CPU Usage</li>
-<li>File Descriptor</li>
-</ul>
-<p>Before we start these topics, we will firstly introduce some conception, instruction and TroubleShooting Tools. All topics are combined with Labs and Demos.</p>
+                        <h1 id="generational-garbage-collection-process">Generational Garbage Collection Process</h1>
+<p>The pictures below walks through the object allocation and aging process in the JVM.</p>
+<h2 id="step-i-object-allocation">Step I: Object Allocation</h2>
+<p>First, any new objects are allocated to the eden space. Both survivor spaces start out empty</p>
+<p><img src="img/gc-process-1.PNG" alt="Object Allocation"></p>
+<h2 id="setp-ii-filling-the-eden-space">Setp II: Filling the Eden Space</h2>
+<p>When the eden space fills up, a minor garbage collection is triggered.</p>
+<p><img src="img/gc-process-2.PNG" alt="Filling the Eden Space"></p>
+<h2 id="step-iii-copying-referenced-objects">Step III: Copying Referenced Objects</h2>
+<p>Referenced objects are moved to the firet survivor space. Unreferenced objects are deleted when the eden space is cleared.</p>
+<p><img src="img/gc-process-3.PNG" alt="Copying Referenced Objects"></p>
+<h2 id="step-iv-object-aging">Step IV: Object Aging</h2>
+<p>At the next minor GC, the same thing happens for the eden space. Unreferenced objects are deleted and referenced objects are moved to a survivor space. However, in this case, they are moved to the second survivor space (S1). In addition, objects from the last minor GC on the first survivor space (S0) have their age incremented and get moved to S1. Once all surviving objects have been moved to S1, both S0 and eden are cleared. Notice we now have differently aged object in the survivor space.</p>
+<p><img src="img/gc-process-4.PNG" alt="Object Aging"></p>
+<h2 id="step-v-additional-aging">Step V: Additional Aging</h2>
+<p>At the next minor GC, the same process repeats. However this time the survivor spaces switch. Referenced objects are moved to S0. Surviving objects are aged. Eden and S1 are cleared.</p>
+<p><img src="img/gc-process-5.PNG" alt="Additional Aging"></p>
+<h2 id="step-vi-promotion">Step VI: Promotion</h2>
+<p>This slide demonstrates promotion. After a minor GC, when aged objects reach a certain age threshold (8 in this example) they are promoted from young generation to old generation.</p>
+<p><img src="img/gc-process-6.PNG" alt="Promotion"></p>
+<h2 id="step-vii-additional-promotion">Step VII: Additional Promotion</h2>
+<p>As minor GCs continue to occure objects will continue to be promoted to the old generation space.</p>
+<p><img src="img/gc-process-7.PNG" alt="Additional Promotion"></p>
+<h2 id="step-viii-gc-process-summary">Step VIII: GC Process Summary</h2>
+<p>So that pretty much covers the entire process with the young generation. Eventually, a major GC will be performed on the old generation which cleans up and compacts that space.</p>
+<p><img src="img/gc-process-8.PNG" alt="GC Process Summary"></p>
+<h1 id="generational-garbage-collection-process-lab">Generational Garbage Collection Process Lab</h1>
+<p><a href="../labs/lab-heap-usage.html"><em>Generational Garbage Collection Process Lab</em></a></p>
 
                     
                     </section>
@@ -279,33 +300,35 @@
         </div>
 
         
+        <a href="../intro/jvm-generation.html" class="navigation navigation-prev " aria-label="Previous page: JVM Generation"><i class="fa fa-angle-left"></i></a>
         
-        <a href="./intro/introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Basic conception, instruction and tools"><i class="fa fa-angle-right"></i></a>
+        
+        <a href="../intro/jvm-opts.html" class="navigation navigation-next " aria-label="Next page: JVM OPTS"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
 
         
-<script src="gitbook/app.js"></script>
+<script src="../gitbook/app.js"></script>
 
     
-    <script src="gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
-    
-
-    
-    <script src="gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    <script src="../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
     
 
     
-    <script src="gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    <script src="../gitbook/plugins/gitbook-plugin-search/search.js"></script>
     
 
     
-    <script src="gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
     
 
     
-    <script src="gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
     
 
 <script>
