@@ -1,4 +1,7 @@
-Java Virtual Machine TroubleShooting Manual Mainly focus on the following aspects:
+
+![JVM Troubleshooting](cover_middle.jpg)
+
+The aspects of JVM Troubleshooting:
 
 * JVM Hang
 * Out of Memory
@@ -6,4 +9,4 @@ Java Virtual Machine TroubleShooting Manual Mainly focus on the following aspect
 * High CPU Usage
 * File Descriptor
 
-Before we start these topics, we will firstly introduce some conception, instruction and TroubleShooting Tools. All topics are combined with Labs and Demos.
+Before starting these aspects, we will firstly introduce some basic conceptions, instructions and TroubleShooting Tools.

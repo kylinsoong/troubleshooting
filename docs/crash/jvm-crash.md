@@ -1,6 +1,6 @@
 # What
 
-JVM process crashes suddenly
+JVM process crashes suddenly, a JVM hs_err_pidXXXX.log genereated.
 
 # Why
 
@@ -17,4 +17,6 @@ JVM Issue
 * Analyze the Core File
 
 # Labs
+
+* [Lab - Native library cause JVM Crash](jvm-crash-lab.md)
 

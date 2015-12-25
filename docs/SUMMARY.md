@@ -11,6 +11,8 @@
 * [JVM Hang](hang/jvm-hang.md)
 * [Out of Memory](oom/oom.md)
 * [JVM Crash](crash/jvm-crash.md)
+    * [JVM Crash Cases](crash/jvm-crash-cases.md)
+    * [Lab - Native library cause JVM Crash](crash/jvm-crash-lab.md)
 * [High CPU Usage](cpu/high-cpu.md)
 * [File Descriptor](descriptor/descriptor.md)
 * [Labs](labs/labs.md)
