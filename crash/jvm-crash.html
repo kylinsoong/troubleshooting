@@ -37,7 +37,7 @@
         
     
     
-    <link rel="next" href="../cpu/high-cpu.html" />
+    <link rel="next" href="../crash/jvm-crash-cases.html" />
     
     
     <link rel="prev" href="../oom/oom.html" />
@@ -53,7 +53,7 @@
         data-chapter-title="JVM Crash"
         data-filepath="crash/jvm-crash.md"
         data-basepath=".."
-        data-revision="Tue Dec 22 2015 22:07:51 GMT+0800 (CST)"
+        data-revision="Fri Dec 25 2015 18:35:47 GMT+0800 (CST)"
         data-innerlanguage="">
     
 
@@ -63,8 +63,15 @@
             
             
             
+                
+                <li>
+                    <a href="/troubleshooting" target="blank" class="custom-link">JVM Troubleshooting</a>
+                </li>
+            
             
 
+            
+            <li class="divider"></li>
             
 
             
@@ -251,6 +258,42 @@
                     </a>
             
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="crash/jvm-crash-cases.html">
+            
+                
+                    <a href="../crash/jvm-crash-cases.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        JVM Crash Cases
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="crash/jvm-crash-lab.html">
+            
+                
+                    <a href="../crash/jvm-crash-lab.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        Lab - Native library cause JVM Crash
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="5" data-path="cpu/high-cpu.html">
@@ -368,7 +411,7 @@
                     <section class="normal" id="section-">
                     
                         <h1 id="what">What</h1>
-<p>JVM process crashes suddenly</p>
+<p>JVM process crashes suddenly, a JVM hs_err_pidXXXX.log genereated.</p>
 <h1 id="why">Why</h1>
 <p>Native libraries called via JNI(Java Native Interface)</p>
 <ul>
@@ -382,6 +425,9 @@
 <li>Analyze the Core File</li>
 </ul>
 <h1 id="labs">Labs</h1>
+<ul>
+<li><a href="jvm-crash-lab.html">Lab - Native library cause JVM Crash</a></li>
+</ul>
 
                     
                     </section>
@@ -395,7 +441,7 @@
         <a href="../oom/oom.html" class="navigation navigation-prev " aria-label="Previous page: Out of Memory"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../cpu/high-cpu.html" class="navigation navigation-next " aria-label="Next page: High CPU Usage"><i class="fa fa-angle-right"></i></a>
+        <a href="../crash/jvm-crash-cases.html" class="navigation navigation-next " aria-label="Next page: JVM Crash Cases"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
@@ -419,9 +465,13 @@
     <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
     
 
+    
+    <script src="../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
 <script>
 require(["gitbook"], function(gitbook) {
-    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"livereload":{}};
     gitbook.start(config);
 });
 </script>

@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <title>Introduction | </title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="Java Virtual Machine TroubleShooting Manual Mainly focus on the following aspects:">
+        <meta name="description" content="JVM Troubleshooting">
         <meta name="generator" content="GitBook 2.6.6">
         
         
@@ -51,7 +51,7 @@
         data-chapter-title="Introduction"
         data-filepath="README.md"
         data-basepath="."
-        data-revision="Tue Dec 22 2015 22:07:51 GMT+0800 (CST)"
+        data-revision="Fri Dec 25 2015 18:35:47 GMT+0800 (CST)"
         data-innerlanguage="">
     
 
@@ -61,8 +61,15 @@
             
             
             
+                
+                <li>
+                    <a href="/troubleshooting" target="blank" class="custom-link">JVM Troubleshooting</a>
+                </li>
+            
             
 
+            
+            <li class="divider"></li>
             
 
             
@@ -249,6 +256,42 @@
                     </a>
             
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="crash/jvm-crash-cases.html">
+            
+                
+                    <a href="./crash/jvm-crash-cases.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        JVM Crash Cases
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="crash/jvm-crash-lab.html">
+            
+                
+                    <a href="./crash/jvm-crash-lab.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        Lab - Native library cause JVM Crash
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="5" data-path="cpu/high-cpu.html">
@@ -365,7 +408,8 @@
                 
                     <section class="normal" id="section-">
                     
-                        <p>Java Virtual Machine TroubleShooting Manual Mainly focus on the following aspects:</p>
+                        <p><img src="cover_middle.jpg" alt="JVM Troubleshooting"></p>
+<p>The aspects of JVM Troubleshooting:</p>
 <ul>
 <li>JVM Hang</li>
 <li>Out of Memory</li>
@@ -373,7 +417,7 @@
 <li>High CPU Usage</li>
 <li>File Descriptor</li>
 </ul>
-<p>Before we start these topics, we will firstly introduce some conception, instruction and TroubleShooting Tools. All topics are combined with Labs and Demos.</p>
+<p>Before starting these aspects, we will firstly introduce some basic conceptions, instructions and TroubleShooting Tools.</p>
 
                     
                     </section>
@@ -409,9 +453,13 @@
     <script src="gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
     
 
+    
+    <script src="gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
 <script>
 require(["gitbook"], function(gitbook) {
-    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"livereload":{}};
     gitbook.start(config);
 });
 </script>

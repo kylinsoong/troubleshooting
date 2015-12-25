@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Out of Memory | </title>
+        <title>Lab - Native library cause JVM Crash | </title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.6.6">
@@ -37,10 +37,10 @@
         
     
     
-    <link rel="next" href="../crash/jvm-crash.html" />
+    <link rel="next" href="../cpu/high-cpu.html" />
     
     
-    <link rel="prev" href="../hang/jvm-hang.html" />
+    <link rel="prev" href="../crash/jvm-crash-cases.html" />
     
 
         
@@ -49,9 +49,9 @@
         
         
     <div class="book"
-        data-level="3"
-        data-chapter-title="Out of Memory"
-        data-filepath="oom/oom.md"
+        data-level="4.2"
+        data-chapter-title="Lab - Native library cause JVM Crash"
+        data-filepath="crash/jvm-crash-lab.md"
         data-basepath=".."
         data-revision="Fri Dec 25 2015 18:35:47 GMT+0800 (CST)"
         data-innerlanguage="">
@@ -230,7 +230,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="3" data-path="oom/oom.html">
+        <li class="chapter " data-level="3" data-path="oom/oom.html">
             
                 
                     <a href="../oom/oom.html">
@@ -276,7 +276,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.2" data-path="crash/jvm-crash-lab.html">
+        <li class="chapter active" data-level="4.2" data-path="crash/jvm-crash-lab.html">
             
                 
                     <a href="../crash/jvm-crash-lab.html">
@@ -410,28 +410,82 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="what">What</h1>
-<p>Output the <strong>java.lang.OutOfMemory</strong> from server log or stdout/err log.</p>
-<h1 id="why">Why</h1>
-<p>Run out of Memory at:</p>
+                        <h1 id="whats-this">What&apos;s this</h1>
+<p>This lab will demonstrates:</p>
 <ul>
-<li>Java heap area</li>
-<li>Permanent area</li>
-<li>Native memory area</li>
+<li>how native libraries cause JVM crash</li>
+<li>how use gcc compile c code in Linux X86_64 machine</li>
+<li>how to use java code call method in c library.</li>
 </ul>
-<p>Memory leakage </p>
+<h1 id="prerequisite">Prerequisite</h1>
+<p>Get Source Code from Github</p>
+<pre><code>$ git clone git@github.com:kylinsoong/troubleshooting.git
+$ cd troubleshooting/docs/crash/src/
+$ tree
+.
+&#x251C;&#x2500;&#x2500; HelloJNI.java
+&#x251C;&#x2500;&#x2500; native
+&#x2502;   &#x251C;&#x2500;&#x2500; HelloJNI.c
+&#x2502;   &#x251C;&#x2500;&#x2500; HelloJNI.h
+&#x2502;   &#x251C;&#x2500;&#x2500; TestJniImpl.c
+&#x2502;   &#x2514;&#x2500;&#x2500; TestJniImpl.h
+&#x2514;&#x2500;&#x2500; TestClass.java
+</code></pre><p>Compile c code and use Java code call method in c library, use <a href="src/HelloJNI.java">HelloJNI.java</a> and <a href="src/native/HelloJNI.c">HelloJNI.c</a> as example:</p>
+<pre><code>$ cd native/
+$ gcc -I&quot;/usr/java/jdk1.8.0_25/include&quot; -I&quot;/usr/java/jdk1.8.0_25/include/linux&quot; -fPIC -shared -o libhello.so HelloJNI.c
+$ cd ..
+$ javac HelloJNI.java
+$ java -Djava.library.path=./native HelloJNI
+Hello World JNI!
+</code></pre><blockquote>
+<p>NOTE: jdk installation path is /usr/java/jdk1.8.0_25, gcc compile <a href="src/native/HelloJNI.c">HelloJNI.c</a> generate native library <code>libhello.so</code>, javac compile <a href="src/HelloJNI.java">HelloJNI.java</a> generate <code>HelloJNI.class</code>. </p>
+</blockquote>
+<h1 id="native-library-cause-jvm-crash-example">Native library cause JVM crash example</h1>
+<p><a href="src/native/TestJniImpl.c">TestJniImpl.c</a> has the following code</p>
+<pre><code>Java_TestClass_printHello(JNIEnv *env, jobject obj)
+{
+
+  int test = 0;
+  test = 1/test;
+  return;
+}
+</code></pre><p>run above code will throw a exception in runtime, <a href="src/TestClass.java">TestClass.java</a> will call <code>printHello()</code> method, which will cause JVM crash due to c code&apos;s exception. Use the following steps to reproduce native library cause JVM crash.</p>
 <ul>
-<li>Increasing usage of memory and running out of memory finally</li>
-<li>If leakage is seen in Java heap, suspect: Non closure of JDBC object, Cached object or Long life object</li>
+<li>Compile TestJniImpl.c</li>
 </ul>
-<p>JVM&apos;s bug (e.g. GC&apos;s compaction is a mess)</p>
-<h1 id="how">How</h1>
+<pre><code>$ cd native/
+$ gcc -I&quot;/usr/java/jdk1.8.0_25/include&quot; -I&quot;/usr/java/jdk1.8.0_25/include/linux&quot; -fPIC -shared -o libTestJniImpl.so TestJniImpl.c
+</code></pre><p><code>libTestJniImpl.so</code> will be generated once compile success.</p>
 <ul>
-<li>Analyze the GC log</li>
-<li>Analyze the Java process memory</li>
-<li>Analyze details of the Java process memory</li>
+<li>Compile TestClass.java</li>
 </ul>
-<h1 id="labs">Labs</h1>
+<pre><code>$ javac TestClass.java
+</code></pre><ul>
+<li>Run TestClass reproduce native library cause JVM Crash</li>
+</ul>
+<pre><code>$ java -Djava.library.path=./native TestClass
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGFPE (0x8) at pc=0x00007f255b2f36f5, pid=11816, tid=139798874932992
+#
+# JRE version: Java(TM) SE Runtime Environment (8.0_25-b17) (build 1.8.0_25-b17)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.25-b02 mixed mode linux-amd64 compressed oops)
+# Problematic frame:
+# C  [libTestJniImpl.so+0x6f5]  Java_TestClass_printHello+0x1d
+#
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try &quot;ulimit -c unlimited&quot; before starting Java again
+#
+# An error report file with more information is saved as:
+# /home/kylin/src/troubleshooting/docs/crash/src/hs_err_pid11816.log
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.sun.com/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+Aborted (core dumped)
+</code></pre><p>Note that, a crash log <a href="samples/hs_err_pid005">hs_err_pid11816.log</a> generate under the same folder of TestClass. </p>
 
                     
                     </section>
@@ -442,10 +496,10 @@
         </div>
 
         
-        <a href="../hang/jvm-hang.html" class="navigation navigation-prev " aria-label="Previous page: JVM Hang"><i class="fa fa-angle-left"></i></a>
+        <a href="../crash/jvm-crash-cases.html" class="navigation navigation-prev " aria-label="Previous page: JVM Crash Cases"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../crash/jvm-crash.html" class="navigation navigation-next " aria-label="Next page: JVM Crash"><i class="fa fa-angle-right"></i></a>
+        <a href="../cpu/high-cpu.html" class="navigation navigation-next " aria-label="Next page: High CPU Usage"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

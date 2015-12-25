@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Out of Memory | </title>
+        <title>JVM Crash Cases | </title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.6.6">
@@ -37,10 +37,10 @@
         
     
     
-    <link rel="next" href="../crash/jvm-crash.html" />
+    <link rel="next" href="../crash/jvm-crash-lab.html" />
     
     
-    <link rel="prev" href="../hang/jvm-hang.html" />
+    <link rel="prev" href="../crash/jvm-crash.html" />
     
 
         
@@ -49,9 +49,9 @@
         
         
     <div class="book"
-        data-level="3"
-        data-chapter-title="Out of Memory"
-        data-filepath="oom/oom.md"
+        data-level="4.1"
+        data-chapter-title="JVM Crash Cases"
+        data-filepath="crash/jvm-crash-cases.md"
         data-basepath=".."
         data-revision="Fri Dec 25 2015 18:35:47 GMT+0800 (CST)"
         data-innerlanguage="">
@@ -230,7 +230,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="3" data-path="oom/oom.html">
+        <li class="chapter " data-level="3" data-path="oom/oom.html">
             
                 
                     <a href="../oom/oom.html">
@@ -261,7 +261,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="4.1" data-path="crash/jvm-crash-cases.html">
+        <li class="chapter active" data-level="4.1" data-path="crash/jvm-crash-cases.html">
             
                 
                     <a href="../crash/jvm-crash-cases.html">
@@ -410,28 +410,43 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="what">What</h1>
-<p>Output the <strong>java.lang.OutOfMemory</strong> from server log or stdout/err log.</p>
-<h1 id="why">Why</h1>
-<p>Run out of Memory at:</p>
-<ul>
-<li>Java heap area</li>
-<li>Permanent area</li>
-<li>Native memory area</li>
-</ul>
-<p>Memory leakage </p>
-<ul>
-<li>Increasing usage of memory and running out of memory finally</li>
-<li>If leakage is seen in Java heap, suspect: Non closure of JDBC object, Cached object or Long life object</li>
-</ul>
-<p>JVM&apos;s bug (e.g. GC&apos;s compaction is a mess)</p>
-<h1 id="how">How</h1>
-<ul>
-<li>Analyze the GC log</li>
-<li>Analyze the Java process memory</li>
-<li>Analyze details of the Java process memory</li>
-</ul>
-<h1 id="labs">Labs</h1>
+                        <h1 id="jvm-crash-cases">JVM Crash Cases</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Name</strong></th>
+<th style="text-align:left"><strong>Log File</strong></th>
+<th style="text-align:left"><strong>Root Cause</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Native libraries cause JVM crash</strong></td>
+<td style="text-align:left"><a href="samples/hs_err_pid005">hs_err_pid005</a></td>
+<td style="text-align:left">Native library throw a exception in runtime cause JVM crash, more details refer to <a href="jvm-crash-lab.html">lab</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>JVM&apos;s GC thread cause JVM crash</strong></td>
+<td style="text-align:left"><a href="samples/hs_err_pid001">hs_err_pid001</a></td>
+<td style="text-align:left">The crash is in the JVM&apos;s garbage collector thread and there are not native libraries loaded other than JDK and OS ones. This means the problem can only be a bug in the JVM (more likely) or the OS (less likely). There is not enough information to make any determination of any potential JDK bugs, all that we can really tell is that is crashed in GC-related code.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>JVM crash without more output log</strong></td>
+<td style="text-align:left"><a href="samples/hs_err_pid002">hs_err_pid002</a></td>
+<td style="text-align:left">It&apos;s a JVM crash with no 3rd party DLLs loaded, which means it&apos;s almost certainly a JVM bug of some sort. It&apos;s always crashing in a HTTP thread, and with no dlls, that probably means either memory corruption or a JIT bug (generared not in the JIT compiler, there are no active compile tasks). The thread stack is corrupted, so that&apos;s no use. The problem is that the way the crash occurs, it is corrupting the thread information, so that it cannot be printed out.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>JVM crash due to Native memory allocation</strong></td>
+<td style="text-align:left"><a href="samples/hs_err_pid003">hs_err_pid003</a></td>
+<td style="text-align:left">N/A</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>JVM crash due to bad compiled java code</strong></td>
+<td style="text-align:left"><a href="samples/hs_err_pid004">hs_err_pid004</a></td>
+<td style="text-align:left">It looks like you may have had a compiler bug generate some bad compiled java code to cause your crash.  As a workaround, you could exclude the problem org.apache.http.client.protocol.RequestAddCookies.process method from compilation with the following java option: -XX:CompileCommand=exclude,org/apache/http/client/protocol/RequestAddCookies</td>
+</tr>
+</tbody>
+</table>
 
                     
                     </section>
@@ -442,10 +457,10 @@
         </div>
 
         
-        <a href="../hang/jvm-hang.html" class="navigation navigation-prev " aria-label="Previous page: JVM Hang"><i class="fa fa-angle-left"></i></a>
+        <a href="../crash/jvm-crash.html" class="navigation navigation-prev " aria-label="Previous page: JVM Crash"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../crash/jvm-crash.html" class="navigation navigation-next " aria-label="Next page: JVM Crash"><i class="fa fa-angle-right"></i></a>
+        <a href="../crash/jvm-crash-lab.html" class="navigation navigation-next " aria-label="Next page: Lab - Native library cause JVM Crash"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
