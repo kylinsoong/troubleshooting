@@ -23,3 +23,5 @@ lsof -p <PID>
 ~~~
 
 # Labs
+
+* [Too many open files - Maven assemble plugin](mvn-too-many-file-open.md)

@@ -15,6 +15,7 @@
     * [Lab - Native library cause JVM Crash](crash/jvm-crash-lab.md)
 * [High CPU Usage](cpu/high-cpu.md)
 * [File Descriptor](descriptor/descriptor.md)
+    * [Too many open files - Maven assemble plugin](descriptor/mvn-too-many-file-open.md) 
 * [Labs](labs/labs.md)
     * [Generational Garbage Collection Process](labs/lab-heap-usage.md)
     * [Java Threads Deadlock](labs/lab-thread-deadlock.md)
