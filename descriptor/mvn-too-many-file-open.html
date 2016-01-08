@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>File Descriptor | </title>
+        <title>Too many open files - Maven assemble plugin | </title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.6.6">
@@ -37,10 +37,10 @@
         
     
     
-    <link rel="next" href="../descriptor/mvn-too-many-file-open.html" />
+    <link rel="next" href="../labs/labs.html" />
     
     
-    <link rel="prev" href="../cpu/high-cpu.html" />
+    <link rel="prev" href="../descriptor/descriptor.html" />
     
 
         
@@ -49,9 +49,9 @@
         
         
     <div class="book"
-        data-level="6"
-        data-chapter-title="File Descriptor"
-        data-filepath="descriptor/descriptor.md"
+        data-level="6.1"
+        data-chapter-title="Too many open files - Maven assemble plugin"
+        data-filepath="descriptor/mvn-too-many-file-open.md"
         data-basepath=".."
         data-revision="Fri Jan 08 2016 14:54:44 GMT+0800 (CST)"
         data-innerlanguage="">
@@ -311,7 +311,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="6" data-path="descriptor/descriptor.html">
+        <li class="chapter " data-level="6" data-path="descriptor/descriptor.html">
             
                 
                     <a href="../descriptor/descriptor.html">
@@ -327,7 +327,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1" data-path="descriptor/mvn-too-many-file-open.html">
+        <li class="chapter active" data-level="6.1" data-path="descriptor/mvn-too-many-file-open.html">
             
                 
                     <a href="../descriptor/mvn-too-many-file-open.html">
@@ -431,29 +431,81 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="what">What</h1>
-<p>Output the Too many open files from server log or stdout/err log</p>
-<h1 id="why">Why</h1>
+                        <h1 id="too-many-open-files--maven-assemble-plugin">Too many open files - Maven assemble plugin</h1>
+<h2 id="environment">Environment</h2>
 <ul>
-<li>The File Descriptor parameter is not suitable</li>
-<li>The file is not closed</li>
-<li>It remains, while socket connection has been in the state before TIME_WAIT</li>
+<li>Linux Fedora 20</li>
 </ul>
-<h1 id="how">How</h1>
+<pre><code>$ uname -a
+Linux ksoong.xxx.com 3.11.10-301.fc20.x86_64 #1 SMP Thu Dec 5 14:01:17 UTC 2013 x86_64 x86_64 x86_64 GNU/Linux
+</code></pre><ul>
+<li>Java 1.8</li>
+</ul>
+<pre><code>$ java -version
+java version &quot;1.8.0_25&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_25-b17)
+Java HotSpot(TM) 64-Bit Server VM (build 25.25-b02, mixed mode)
+</code></pre><ul>
+<li>Maven 3.2.5</li>
+</ul>
+<pre><code>$ mvn --version
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-15T01:29:23+08:00)
+Maven home: /home/kylin/tools/apache-maven-3.2.5
+Java version: 1.8.0_25, vendor: Oracle Corporation
+Java home: /usr/java/jdk1.8.0_25/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: &quot;linux&quot;, version: &quot;3.11.10-301.fc20.x86_64&quot;, arch: &quot;amd64&quot;, family: &quot;unix&quot;
+</code></pre><h2 id="issue">Issue</h2>
+<p>Maven assemble plugin throw <code>Too many open files</code> Exception caused build failed</p>
+<pre><code>Caused by: org.codehaus.plexus.archiver.ArchiverException: Problem creating zip: ... (Too many open files)
+    at org.codehaus.plexus.archiver.AbstractArchiver.createArchive(AbstractArchiver.java:1056)
+    at org.apache.maven.plugin.assembly.archive.archiver.AssemblyProxyArchiver.createArchive(AssemblyProxyArchiver.java:437)
+    at org.apache.maven.plugin.assembly.archive.DefaultAssemblyArchiver.createArchive(DefaultAssemblyArchiver.java:181)
+</code></pre><h2 id="resolution">Resolution</h2>
+<p>Configuring /etc/security/limits.conf, add the following 2 lines</p>
+<pre><code>kylin soft    nofile           8192
+kylin hard    nofile           8192
+</code></pre><ul>
+<li>kylin - the user name of mvn executed</li>
+<li>soft - for enforcing the soft limits</li>
+<li>hard - for enforcing hard limits</li>
+<li>nofile - max number of open files</li>
+</ul>
+<p>Once configuration completed, exit and re-login for the change to take effect. To check the change take effect via ulimit command:</p>
+<pre><code>$ ulimit -n
+8192
+</code></pre><h2 id="diagnostic-steps">Diagnostic Steps</h2>
 <ul>
-<li>Find the files which are opened by the process</li>
-<li>Confirm resource limit on OS</li>
-<li>Confirm the socket state</li>
+<li>Check the max number of open files in current user, either <code>ulimit -a</code>, or <code>ulimit -n</code></li>
 </ul>
-<p>Basic troubleshooting commands in Linux</p>
-<pre><code>ulimit -n
-lsof -p &lt;PID&gt; | wc -l
-lsof -p &lt;PID&gt;
-</code></pre><h1 id="labs">Labs</h1>
-<ul>
-<li><a href="mvn-too-many-file-open.html">Too many open files - Maven assemble plugin</a></li>
+<pre><code>$ ulimit -a
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 61431
+max locked memory       (kbytes, -l) 64
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 1024
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 8192
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 61431
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+</code></pre><pre><code>$ ulimit -n
+1024
+</code></pre><ul>
+<li><p>Change the max number of open files</p>
+</li>
+<li><p>Verify the change take effect</p>
+</li>
 </ul>
-
+<pre><code>$ ulimit -n
+8192
+</code></pre>
                     
                     </section>
                 
@@ -463,10 +515,10 @@ lsof -p &lt;PID&gt;
         </div>
 
         
-        <a href="../cpu/high-cpu.html" class="navigation navigation-prev " aria-label="Previous page: High CPU Usage"><i class="fa fa-angle-left"></i></a>
+        <a href="../descriptor/descriptor.html" class="navigation navigation-prev " aria-label="Previous page: File Descriptor"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../descriptor/mvn-too-many-file-open.html" class="navigation navigation-next " aria-label="Next page: Too many open files - Maven assemble plugin"><i class="fa fa-angle-right"></i></a>
+        <a href="../labs/labs.html" class="navigation navigation-next " aria-label="Next page: Labs"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
